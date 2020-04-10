@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Simulador de circuitos digitales</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="keywords" content="Simulador, Simulator, Digital, Circuitos, Circuits, UNS">
+  	<meta name="author" content="Matías Micheletto">
+  	<link rel="icon" type="image/png" href="custom/img/favicon.ico">
+	
+	<!-- VENDOR STYLES -->
+	<link rel="stylesheet" type="text/css" href="vendor/css/icons.css">
+	<link rel="stylesheet" type="text/css" href="vendor/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/css/simcir.css">
+	<link rel="stylesheet" type="text/css" href="vendor/css/simcir-basicset.css">
+</head>
+
+<body>
+	<!-- ##################### NAVBAR ##################### -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" ng-cloak ng-if="userLogged">
+	  <a class="navbar-brand" href=""><img width="50" height="50"  src="custom/img/logo.png"></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item"><a class="nav-link" href="#!/">Documentación</a></li>
+			<li class="nav-item"><a class="nav-link" href="#!/">Ayuda</a></li>
+			<li class="nav-item"><a class="nav-link" href="#!/">Acerca de</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="nav-item">
+				<div class="dropdown">
+					<a class="nav-link dropdown-toggle" id="dropdownMenuButton" title="Exportar"
+					style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="material-icons">save_alt</i>
+					</a>
+					<div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					  <a class="dropdown-item" style="cursor: pointer;" onclick="simexport('url')">Exportar url</a>
+					  <a class="dropdown-item" style="cursor: pointer;" onclick="simexport('json')">Exportar .json</a>
+					  <a class="dropdown-item" style="cursor: pointer;" onclick="simimport('json')">Importar .json</a>
+					</div>
+				</div>
+			</li>
+		  </ul>
+	  </div>
+	</nav>
+
+
+	<div class="container" style="margin-top: 50px;">
+		<h4>Simulador de circuitos</h4>
+
+	    <div class="card hoverable z-depth-1" id="simcir" style="width: 100%;height: 80vh;"></div>
+
+    </div>
+
+  
+	<!-- ##################### AYUDA ##################### -->
+	<div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>Ayuda</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					
+					<h3>Simulador de circuitos</h3>
+
+			        <p>Instrucciones de uso:</p>
+
+			        <ol>
+			            <li>Elija un dispositivo de la lista y arrastre hacia la derecha.</li>
+			            <li>Conecte entradas con salidas arrastrando.</li>
+			            <li>Para desconectar un nodo, haga click en la entrada.</li>
+			            <li>Para borrar un componente, arrastre hacia la barra de herramientas.</li>
+			            <li>Ctrl+Click (command+Click en Mac) para alternar la vista de circuito o código.</li>
+			            <li>Doble click en una etiqueta para renombrar dispositivo.</li>
+			            <li>Doble click en un componente de mediana escala para abrir el circuito que contiene.</li>
+			            <li>Use "Test-In" y "Test-Out" para obtener la tabla de verdad del circuito combinacional.</li>
+			        </ol>
+
+			        <p><a href="https://github.com/kazuhikoarase/simcirjs">Documentación</a></p>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-dark" data-dismiss="modal">Aceptar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- VENDOR ASSETS -->
+	<script type="text/javascript" src="vendor/js/jquery.min.js"></script>
+	<script type="text/javascript" src="vendor/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="vendor/js/toastr.min.js"></script>
+	<script type="text/javascript" src="vendor/js/tone.min.js"></script>
+	<script type="text/javascript" src="vendor/js/simcir.js"></script>
+	<script type="text/javascript" src="vendor/js/simcir-library.js"></script>
+	<script type="text/javascript" src="vendor/js/simcir-basicset.js"></script>
+	<script type="text/javascript" src="vendor/js/simcir-virtual-port.js"></script>
+	
+	<!-- CUSTOM ASSETS -->
+	<script type="text/javascript" src="custom/js/simcir-external-port.js"></script>
+	<script type="text/javascript" src="custom/js/simcir-audio-port.js"></script>
+	<script type="text/javascript" src="custom/js/controller.js"></script>	
+</body>
+
+</html>
