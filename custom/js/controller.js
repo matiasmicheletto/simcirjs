@@ -1,4 +1,5 @@
-const DEBUG = true; // Modo debuggeo
+const DEBUG = false; // Modo debuggeo
+const simpleCrypto = new SimpleCrypto("simcirjmkey"); // Libreria de encriptacion
 
 var loadCircuit = function(model){ // Cargar modelo al simulador
     simcir.clearDevices(); // Borrar caches de managers
@@ -32,23 +33,27 @@ var saveFile = function (content, fileName, contentType) { // Exportar archivo b
 };
 
 var simexport = function (type) { // Exportar el modelo a distintos formatos
-    var model = simcir.controller($('#simcir').find('.simcir-workspace')).data(); // Objeto con datos de simulacion
+    var modelData = simcir.controller($('#simcir').find('.simcir-workspace')).data(); // Objeto con datos de simulacion
     //var data = JSON.stringify((({ devices, connectors }) => ({ devices, connectors }))(model)); // Solo guardar dos propiedades
-    var data = (function(model){return {devices:model.devices, connectors:model.connectors};})(model);  // Solo guardar dos propiedades
 
-    if(model.devices.length == 0){ // No guardar si no hay componentes
+    if(modelData.devices.length == 0){ // No guardar si no hay componentes
         toastr.error("No hay componentes!");
-    }else{ // Si hay al menos un componente, guardar en db
-        
-        data.timestamp = Date.now();
-
+    }else{ // Si hay al menos un componente, guardar en db        
+        var model = (function(model){return {devices:modelData.devices, connectors:modelData.connectors, timestamp: Date.now()};})(model);  // Solo guardar dos propiedades
         switch(type){
-            case "txt":
-                saveFile(JSON.stringify(data), 'model.simcir', 'text/json');
+            case "txt": // Exportar como arhivo de texto plano
+                saveFile(JSON.stringify(model), 'model.simcir', 'text/json');
                 break;
-            case "url":
-                console.log("url");
-                console.log(data);
+            case "url": // Exportar mediante url
+                var data = JSON.stringify(model); // Convertir a string y codificar para pasar como link
+                var cipheredModel = simpleCrypto.encrypt(data); // Encriptar
+                var url = "https://matiasmicheletto.github.io/simcirjs?model="+cipheredModel; // Generar url
+
+                // Mostrar url en modal
+                var ref = document.getElementById("shareUrl");
+                ref.href = url;
+                ref.innerHTML = url;
+                $("#share-modal").modal("show");
                 break;
             default:
                 break;
@@ -467,9 +472,16 @@ var printResults = function(results){
 ///// Inicializacion del controller
 
 // Inicializar simulador
-var openSimulation = false;
-if(openSimulation){ // Si hay modelos en url
-    loadCircuit(openSimulation);
+
+var queryStringModel = window.location.search.replace("?model=", ""); // 
+
+if(queryStringModel){ // Si hay modelos en url
+    var data = simpleCrypto.decrypt(queryStringModel); // Desifrar cadena
+    if(DEBUG) console.log(data);
+    if(data.length > 0){ // Verificacion simple
+        var model = JSON.parse(data); // Obtener objeto desde string
+        loadCircuit(model); // Cargar modelo
+    }
 }else{
     simcir.setupSimcir($('#simcir'), {
         width: document.getElementById("simcir").clientWidth,
@@ -477,12 +489,12 @@ if(openSimulation){ // Si hay modelos en url
     });
 }
 
-window.onresize = function(ev){ // Simulador responsive
-    // Dimensiones del card (que es responsive)
+window.onresize = function(ev){ // Espacio responsivo
+    // Dimensiones del card (que es responsive por bootstrap)
     var w = document.getElementById('simcir').clientWidth;
     var h = document.getElementById('simcir').clientHeight;
     var el = document.getElementsByClassName("simcir-workspace")[0]; // Div contenedor (generado por simcir)
     el.setAttribute("viewBox", "0 0 "+w+" "+h); // Dimensiones del svg
-    el.setAttribute("width", w); // Escala
+    el.setAttribute("width", w);
     el.setAttribute("height", h); 
 };

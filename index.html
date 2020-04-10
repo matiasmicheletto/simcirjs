@@ -2,13 +2,15 @@
 <html>
 
 <head>
-	<title>Simulador de circuitos digitales</title>
+	<title>SimCirJM</title>
 
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="keywords" content="Simulador, Simulator, Digital, Circuitos, Circuits, UNS">
-  	<meta name="author" content="Matías Micheletto">
+	<meta name="author" content="Matías Micheletto">
+	<meta name="description" content="Un simulador de circuitos digitales para HTML, CSS y JS online gratuito y open-source">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+
   	<link rel="icon" type="image/png" href="custom/img/favicon.ico">
 	
 	<!-- ##################### VENDOR STYLES ##################### -->
@@ -22,7 +24,7 @@
 <body>
 	<!-- ##################### NAVBAR ##################### -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" ng-cloak ng-if="userLogged">
-	  <a class="navbar-brand" href=""><img width="50" height="50"  src="custom/img/logo_blur.png"></a>
+	  <a class="navbar-brand" style="cursor: pointer;"><img width="50" height="50"  src="custom/img/logo_blur.png"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	  </button>
@@ -167,11 +169,34 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="share-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>Compartir simulación</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" style="word-break: break-all;">
+
+					<p>Para compartir la simulación actual, comparta el siguiente enlace:</p>
+
+					<a id="shareUrl"></a>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-dark" data-dismiss="modal">Aceptar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<!-- ##################### VENDOR ASSETS ##################### -->
 	<script type="text/javascript" src="vendor/js/jquery.min.js"></script>
 	<script type="text/javascript" src="vendor/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="vendor/js/toastr.min.js"></script>
+	<script type="text/javascript" src="vendor/js/SimpleCrypto.min.js"></script>
 	<script type="text/javascript" src="vendor/js/tone.min.js"></script>
 	<script type="text/javascript" src="vendor/js/simcir.js"></script>
 	<script type="text/javascript" src="vendor/js/simcir-basicset.js"></script>
