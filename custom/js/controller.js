@@ -46,9 +46,8 @@ var simexport = function (type) { // Exportar el modelo a distintos formatos
                 break;
             case "url": // Exportar mediante url
                 var data = JSON.stringify(model); // Convertir a string y codificar para pasar como link
-                var cipheredModel = simpleCrypto.encrypt(data); // Encriptar
-                var url = "https://matiasmicheletto.github.io/simcirjs?model="+cipheredModel; // Generar url
-
+                var cipheredModel = encodeURIComponent(simpleCrypto.encrypt(data)); // Encriptar
+                var url = DEBUG ? "http://localhost:8080/index.html?model="+cipheredModel : "https://matiasmicheletto.github.io/simcirjs?model="+cipheredModel; // Generar url
                 // Mostrar url en modal
                 var ref = document.getElementById("shareUrl");
                 ref.href = url;
@@ -473,7 +472,7 @@ var printResults = function(results){
 
 // Inicializar simulador
 
-var queryStringModel = window.location.search.replace("?model=", ""); // 
+var queryStringModel = decodeURIComponent(window.location.search).replace("?model=", ""); 
 
 if(queryStringModel){ // Si hay modelos en url
     var data = simpleCrypto.decrypt(queryStringModel); // Desifrar cadena
