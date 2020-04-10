@@ -11,7 +11,7 @@
   	<meta name="author" content="Matías Micheletto">
   	<link rel="icon" type="image/png" href="custom/img/favicon.ico">
 	
-	<!-- VENDOR STYLES -->
+	<!-- ##################### VENDOR STYLES ##################### -->
 	<link rel="stylesheet" type="text/css" href="vendor/css/icons.css">
 	<link rel="stylesheet" type="text/css" href="vendor/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="vendor/css/simcir.css">
@@ -21,45 +21,42 @@
 <body>
 	<!-- ##################### NAVBAR ##################### -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" ng-cloak ng-if="userLogged">
-	  <a class="navbar-brand" href=""><img width="50" height="50"  src="custom/img/logo.png"></a>
+	  <a class="navbar-brand" href=""><img width="50" height="50"  src="custom/img/logo_blur.png"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	  </button>
 	
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item"><a class="nav-link" href="#!/">Documentación</a></li>
-			<li class="nav-item"><a class="nav-link" href="#!/">Ayuda</a></li>
-			<li class="nav-item"><a class="nav-link" href="#!/">Acerca de</a></li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
+			<li class="nav-item"><a class="nav-link" title="Documentación" href="https://github.com/matiasmicheletto/simcirjs" target="_blank"><i class="material-icons">menu_book</i></a></li>
+			<li class="nav-item"><a class="nav-link" title="Ayuda" data-toggle="modal" data-target="#help-modal" style="cursor:pointer;"><i class="material-icons">help</i></a></li>
+			<li class="nav-item"><a class="nav-link" title="Acerca de" data-toggle="modal" data-target="#about-modal" style="cursor:pointer;"><i class="material-icons">info</i></a></li>
+			<li class="nav-item"><a class="nav-link" title="Obtener funciones" onclick="analyze()" style="cursor:pointer;"><i class="material-icons">functions</i></a></li>
 			<li class="nav-item">
 				<div class="dropdown">
 					<a class="nav-link dropdown-toggle" id="dropdownMenuButton" title="Exportar"
 					style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="material-icons">save_alt</i>
 					</a>
-					<div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					  <a class="dropdown-item" style="cursor: pointer;" onclick="simexport('url')">Exportar url</a>
-					  <a class="dropdown-item" style="cursor: pointer;" onclick="simexport('json')">Exportar .json</a>
-					  <a class="dropdown-item" style="cursor: pointer;" onclick="simimport('json')">Importar .json</a>
+					  <a class="dropdown-item" style="cursor: pointer;" onclick="simexport('json')">Exportar json</a>
+					  <a class="dropdown-item" style="cursor: pointer;" onclick="simimport('json')">Importar json</a>
 					</div>
 				</div>
 			</li>
-		  </ul>
+		</ul>		
 	  </div>
 	</nav>
 
-
 	<div class="container" style="margin-top: 50px;">
 		<h4>Simulador de circuitos</h4>
-
 	    <div class="card hoverable z-depth-1" id="simcir" style="width: 100%;height: 80vh;"></div>
-
     </div>
 
   
-	<!-- ##################### AYUDA ##################### -->
+	<!-- ##################### MODALS ##################### -->
+
 	<div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -70,8 +67,6 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					
-					<h3>Simulador de circuitos</h3>
 
 			        <p>Instrucciones de uso:</p>
 
@@ -86,8 +81,48 @@
 			            <li>Use "Test-In" y "Test-Out" para obtener la tabla de verdad del circuito combinacional.</li>
 			        </ol>
 
-			        <p><a href="https://github.com/kazuhikoarase/simcirjs">Documentación</a></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-dark" data-dismiss="modal">Aceptar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>Acerca de SimCirJM</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" style="background-image: url('custom/img/logo_inv_blur.png'); 
+                        background-repeat: no-repeat;
+                        background-position: 50% 50%;
+                        background-size: 50%;">
+		            <p>Esta aplicación provee una interface gráfica para el simulador de circuitos lógicos <a href="https://kazuhikoarase.github.io/simcirjs/">SimCirJS</a> y además permite compartir simulaciones por URL o exportar e importar modelos por medio de archivos .json.</p>
+	                <h5>Contacto</h5>
+	                <p>LSD | Laboratorio de Sistemas Digitales<br>
+	                DIEC | Departamento de Ingeniería Eléctrica y Computadoras<br>
+	                San Andrés 800, CP8000 Bahía Blanca<br>
+	                Buenos Aires, Argentina<br>
+	                Teléfono: +54 291 4595153/4<br>
+	                Website: <a href="http://www.diec.uns.edu.ar/rts/#/group">http://www.diec.uns.edu.ar/rts/#/group</a></p>
+		            <br>
+	                <h5>Diseño e implementación</h5>
+	                Ing. Matías J. Micheletto
+	                <br>
+	                <a href="http://matiasmicheletto.github.io/">http://matiasmicheletto.github.io/</a>
+	                <br>
+	                Email: <a href="mailto:matias.micheletto@uns.edu.ar?Subject=Ref.%20SimCirJM">matias.micheletto@uns.edu.ar</a>
+	                <br>
+	                Documentación: <a href="https://github.com/matiasmicheletto/simcirjs">https://github.com/matiasmicheletto/simcirjs</a></p>
+	            	<br><br>  
+	                <h5>Términos y condiciones</h5>
+	                <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License.</p>
+	                <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-dark" data-dismiss="modal">Aceptar</button>
@@ -96,7 +131,7 @@
 		</div>
 	</div>
 	
-	<!-- VENDOR ASSETS -->
+	<!-- ##################### VENDOR ASSETS ##################### -->
 	<script type="text/javascript" src="vendor/js/jquery.min.js"></script>
 	<script type="text/javascript" src="vendor/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="vendor/js/toastr.min.js"></script>
@@ -106,7 +141,7 @@
 	<script type="text/javascript" src="vendor/js/simcir-basicset.js"></script>
 	<script type="text/javascript" src="vendor/js/simcir-virtual-port.js"></script>
 	
-	<!-- CUSTOM ASSETS -->
+	<!-- ##################### CUSTOM ASSETS ##################### -->
 	<script type="text/javascript" src="custom/js/simcir-external-port.js"></script>
 	<script type="text/javascript" src="custom/js/simcir-audio-port.js"></script>
 	<script type="text/javascript" src="custom/js/controller.js"></script>	
