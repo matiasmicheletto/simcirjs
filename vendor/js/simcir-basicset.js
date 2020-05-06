@@ -732,7 +732,7 @@
 
   // register Oscillator
   $s.registerDevice('OSC', function(device) {
-    var freq = device.deviceDef.freq || 5;
+    var freq = device.deviceDef.freq || 8;
     var delay = ~~(500 / freq);
     var out1 = device.addOutput();
     var timerId = null;

@@ -16,8 +16,8 @@ var loadCircuit = function(model){ // Cargar modelo al simulador
         {"type":"4bit7seg"},{"type":"RotaryEncoder"},{"type":"BusIn"},{"type":"BusOut"},
         {"type":"RS-FF"},{"type":"JK-FF"},{"type":"T-FF"},{"type":"D-FF"},{"type":"8bitCounter"},
         {"type":"HalfAdder"},{"type":"FullAdder"},{"type":"4bitAdder"},{"type":"2to4BinaryDecoder"},
-        {"type":"3to8BinaryDecoder"},{"type":"4to16BinaryDecoder"},{"type":"Virtual-In"},
-        {"type":"Virtual-Out"},{"type":"Test-In"},{"type":"Test-Out"},{"type":"Audio-Out"}
+        {"type":"3to8BinaryDecoder"},{"type":"4to16BinaryDecoder"},{"type":"Test-In"},{"type":"Test-Out"},
+        {"type":"Audio-Out"},{"type":"Transmitter"},{"type":"DSO"}
     ];
     simcir.setupSimcir($('#simcir'), model);
 };
